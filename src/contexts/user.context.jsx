@@ -11,8 +11,8 @@ export const userContext = createContext({
   setCurrentUser: () => null,
 });
 
-export const USER_ACTION_TYPES = {
-  SET_CURRENT_USER: "SET_CURRENT_USER",
+const INITIAL_STATE = {
+  currentUser: null,
 };
 
 const userReducer = (state, action) => {
@@ -31,10 +31,6 @@ const userReducer = (state, action) => {
   }
 };
 
-const INITIAL_STATE = {
-  currentUser: null,
-};
-
 export const UserProvider = ({ children }) => {
   // const [currentUser, setCurrentUser] = useState(null);
   const [{ currentUser }, dispatch] = useReducer(userReducer, INITIAL_STATE);
@@ -46,15 +42,15 @@ export const UserProvider = ({ children }) => {
 
   const value = { currentUser, setCurrentUser };
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-      setCurrentUser(user);
-    });
-    return unsubscribe;
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChangedListener((user) => {
+  //     if (user) {
+  //       createUserDocumentFromAuth(user);
+  //     }
+  //     setCurrentUser(user);
+  //   });
+  //   return unsubscribe;
+  // }, []);
 
   return <userContext.Provider value={value}>{children}</userContext.Provider>;
 };

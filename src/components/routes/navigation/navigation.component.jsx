@@ -12,14 +12,19 @@ import {
 import CartIcon from "../../cart-icon/cart-icon.component";
 import CartDropdown from "../../cart-dropdown/cart-dropdown.component";
 
-import { userContext } from "../../../contexts/user.context";
+import { selectCurrentUser } from "../../../store/user/user.selector";
+
+// import { userContext } from "../../../contexts/user.context";
 import { CartContext } from "../../../contexts/cart.context";
 
 import { signOutUser } from "../../../utils/firebase/firebase.utils";
+import { useSelector } from "react-redux";
 
 const Navigation = () => {
-  const { currentUser } = useContext(userContext);
+  // const { currentUser } = useContext(userContext);
+  const currentUser = useSelector(selectCurrentUser);
   const { isCartOpen } = useContext(CartContext);
+
   console.log(currentUser);
 
   return (
